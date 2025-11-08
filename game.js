@@ -89,6 +89,10 @@ class Game {
         this.comboDisplay.textContent = `Combo x${this.comboCount}`;
         this.comboDisplay.classList.add('visible');
 
+        if (this.comboCount === 7) {
+            playSound('combo_7.mp3', 0.2); // Delay to sync with animation
+        }
+
         clearTimeout(this.comboTimeout);
         this.comboTimeout = setTimeout(() => {
             this.comboDisplay.classList.remove('visible');
@@ -115,10 +119,8 @@ class Game {
 
         // Audio feedback
         if (this.comboCount === 6) {
-            playSound('combo_6.mp3');
-        } else if (this.comboCount === 7) {
-            playSound('combo_7.mp3');
-        } else if (this.comboCount > 2) {
+            // Sound for 6 is removed to prevent overlap with 7
+        } else if (this.comboCount > 2 && this.comboCount < 6) { // Play for combos 3, 4, 5
              playSound('crunch_combo.mp3');
         } else if (isPlayerMove) {
             const randomSound = POSITIVE_FEEDBACK_SOUNDS[Math.floor(Math.random() * POSITIVE_FEEDBACK_SOUNDS.length)];
