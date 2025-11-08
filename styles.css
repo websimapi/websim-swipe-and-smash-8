@@ -1,0 +1,185 @@
+body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0c4e4;
+    margin: 0;
+    overflow: hidden;
+    touch-action: none;
+}
+
+#game-container {
+    text-align: center;
+    background: #ffebf8;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    border: 5px solid #fff;
+    width: 95vw;
+    max-width: 540px;
+    box-sizing: border-box;
+}
+
+h1 {
+    display: none;
+}
+
+.subtitle {
+    display: none;
+}
+
+.info {
+    display: none;
+}
+
+#game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    color: #5c3c54;
+    font-size: 1.2em;
+}
+
+#score-container {
+    color: #5c3c54;
+    font-size: 1em; /* Adjusted to fit the bar */
+}
+
+#smash-container {
+    text-align: center;
+}
+
+#smash-button {
+    width: 50px;
+    height: 50px;
+    background-color: #f0c4e4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 3px solid white;
+    box-shadow: 0 4px 0 #a62867, 0 5px 10px rgba(0,0,0,0.2);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+#smash-value {
+    position: relative;
+    z-index: 2;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+#smash-fluid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background-color: #d63384;
+    z-index: 1;
+    transition: height 0.5s ease-out;
+}
+
+#game-board-container {
+    position: relative;
+}
+
+#combo-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    color: white;
+    font-size: 4em;
+    font-weight: bold;
+    z-index: 100;
+    text-shadow: 3px 3px 0 #d63384, -1px -1px 0 #d63384, 1px -1px 0 #d63384, -1px 1px 0 #d63384, 1px 1px 0 #d63384;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+#combo-display.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+#game-board {
+    display: grid;
+    border: 5px solid #e7a5d3;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.candy {
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    transition: top 0.3s ease, left 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+    will-change: top, left, transform; /* Performance hint for browsers */
+}
+
+.candy.selected {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px yellow);
+}
+
+.candy.matched {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.candy.powerup-rainbow {
+    animation: rainbow-glow 2s infinite;
+}
+
+@keyframes rainbow-glow {
+    0% { filter: drop-shadow(0 0 3px #ff0000); }
+    15% { filter: drop-shadow(0 0 3px #ff7f00); }
+    30% { filter: drop-shadow(0 0 3px #ffff00); }
+    45% { filter: drop-shadow(0 0 3px #00ff00); }
+    60% { filter: drop-shadow(0 0 3px #0000ff); }
+    75% { filter: drop-shadow(0 0 3px #4b0082); }
+    90% { filter: drop-shadow(0 0 3px #ee82ee); }
+    100% { filter: drop-shadow(0 0 3px #ff0000); }
+}
+
+.candy.powerup-row::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 10%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    transform: translateY(-50%);
+    box-shadow: 0 0 4px white;
+}
+
+.candy.powerup-col::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    bottom: 10%;
+    width: 10%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 4px white;
+}
