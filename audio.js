@@ -28,7 +28,7 @@ async function loadSound(name) {
     }
 }
 
-export function playSound(name, delay = 0) {
+export function playSound(name) {
     // Resume context on user gesture
     if (audioContext.state === 'suspended') {
         audioContext.resume();
@@ -39,7 +39,7 @@ export function playSound(name, delay = 0) {
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(audioContext.destination);
-        source.start(audioContext.currentTime + delay);
+        source.start(0);
     });
 }
 
